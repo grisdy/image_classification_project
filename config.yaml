@@ -1,0 +1,11 @@
+data:
+  train : "data/seg_train" 
+  test : "data/seg_test" 
+  pred : "data/seg_pred" 
+
+image:
+  dim : [224,224]
+  channel : [3,]
+  input_shape : [224,224,3]
+  batch_size : 10
+
