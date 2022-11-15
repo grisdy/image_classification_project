@@ -1,4 +1,4 @@
-from turtle import st
+# from turtle import st
 from tempfile import NamedTemporaryFile
 
 import PIL.Image
