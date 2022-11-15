@@ -3,8 +3,7 @@ import tensorflow.keras.models as Models
 import tensorflow.keras.applications.mobilenet_v2
 import efficientnet.keras as efn
 
-import os
-import cv2
+
 import PIL.Image
 import numpy as np
 import pickle
