@@ -13,6 +13,6 @@ In this experimet we are using 3 kind of model which are:
   - EfficientNet-B0
   - EfficientNet-B7
 
-You can also play around with my model and try to classify an image using [Streamlit](https://share.streamlit.io/)
+You can also play around with my model and try to classify an image using [Streamlit](https://grisdy-image-classification-project-streamlit-app-develo-gnhjda.streamlit.app/)
 
-You need to create an Streamlit account and then paste my GitHub URL 
+
