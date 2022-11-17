@@ -1,4 +1,3 @@
-# from turtle import st
 from tempfile import NamedTemporaryFile
 
 import PIL.Image
@@ -19,7 +18,16 @@ def load_model(path: str ) :
     model = Model(model_path)
     return model
 
-@st.cache()
+@st.cache
+def load_image(img_file,img_name):
+    """Load Image from repo"""
+    path = os.path.join(img_file,img_name)
+
+    img = PIL.Image.open(path)
+
+    return img
+
+@st.cache
 def predict(
     img,
     model,
@@ -51,7 +59,8 @@ if __name__ == '__main__':
     model = load_model(model_path)
 
     st.write("You could upload an Image below or select from the box on the left side :wink:")
-    #Option for uploading teh photo by the user
+    
+    #Option for uploading the photo by the user
     file = st.file_uploader('Upload An Image')
 
     st.set_option('deprecation.showfileUploaderEncoding', False)
@@ -61,7 +70,7 @@ if __name__ == '__main__':
         temp_file.write(file.getvalue())        
         img = PIL.Image.open(temp_file.name)
 
-        prediction = predict(img, model, k=5)  
+        prediction = predict(img, model, k=6)  
         
     else:
         dat = {
@@ -71,19 +80,17 @@ if __name__ == '__main__':
         dataset_type = st.sidebar.selectbox(
             "Data ", list(dat.keys()))
 
-        image_files = dat[dataset_type]
+        img_file = dat[dataset_type]
 
-        avail_img = os.listdir(image_files)
+        avail_img = os.listdir(img_file)
 
         image_name = st.sidebar.selectbox(
             "Image", avail_img
         )
 
-        pth = os.path.join(image_files,image_name)
-
-        img = PIL.Image.open(pth)
+        img = load_image(img_file,image_name)
         
-        prediction = predict(img, model, k=5)  
+        prediction = predict(img, model, k=6)  
 
 
     #Show Image
@@ -95,9 +102,9 @@ if __name__ == '__main__':
     st.header("Here are the top prediction")
 
     #Create temp df
-    df = pd.DataFrame(data = np.zeros((5,2)),
+    df = pd.DataFrame(data = np.zeros((6,2)),
                         columns = ['Label','Percentage'],
-                        index=np.arange(1,6)
+                        index=np.arange(1,7)
                         )
 
     if prediction :
@@ -105,7 +112,6 @@ if __name__ == '__main__':
             df.iloc[ix,0] = pred[0]
             df.iloc[ix,1] = pred[1]
 
-    # st.write(df.to_html(escape=False), unsafe_allow_html=True)
 
     st.caption(f" :small_blue_diamond: The result is **{df['Label'][1]}** with probability **{df.iloc[0,1]}**")
     st.table(df)
