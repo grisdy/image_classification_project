@@ -1,6 +1,5 @@
 import tensorflow as tf
 import tensorflow.keras.models as Models
-import tensorflow.keras.applications.mobilenet_v2
 import efficientnet.keras as efn
 
 
